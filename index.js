@@ -21,7 +21,23 @@ document.querySelector('#submitWorkout').addEventListener('click', displayWorkou
 const addNewGoal = () => {
     const goalInput = document.querySelector('#goalInput').value;
     const goalList = document.querySelector('#goalList');
-    
+
+    //Fetch all existing goals from the list
+    const existingGoals = Array.from(goalList.querySelectorAll("li"));
+
+    //check to see if goal exists
+    const goalExists = existingGoals.some(goal => goal.textContent === goalInput); //.some array method to test whether 1 element in the array passes the funcation (in this case goal like text exactly matches the new goal input)
+
+    //Create an alert if the goal exists
+    if (goalExists) {
+        alert("Goal already exists!");
+        return;
+    }
+    //create a new goal if it does not exist
+    const newGoal = document.createElement('li');
+    newGoal.textContent = goalInput;
+    goalList.appendChild(newGoal);
+};
     // ⚠️ Hint 1: Check for duplicates
     // Use 'goalList' to get all existing goals and check if 'goalInput' matches any of them.
     
@@ -36,11 +52,6 @@ const addNewGoal = () => {
     // The event listener that removes goals when clicked is not related to this issue.
     // Focus on preventing duplicates for now.
     
-    const newGoal = document.createElement('li');
-    newGoal.textContent = goalInput;
-    goalList.appendChild(newGoal);
-};
-
 // Add event listener to the goal submit button
 document.querySelector('#submitGoal').addEventListener('click', addNewGoal);
 
